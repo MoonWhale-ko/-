@@ -1882,7 +1882,8 @@ html[data-font-weight] body * {
   align-items:center;
   flex-wrap:wrap;
   gap:8px;
-  margin-top:14px;
+  width:min(80%, 1240px);
+  margin:24px auto 0;
   font-size:13px;
 }
 
@@ -1938,19 +1939,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="eyebrow">ARKNIGHTS : ENDFIELD / TRAIT FINDER</div>
     <h1>기질 검색기</h1>
     <p>1번 · 2번 · 3번 옵션에서 각각 하나씩 선택해 조건에 맞는 무기를 찾는 검색기입니다.</p>
-    <div class="font-weight-control">
-      <label for="fontWeightSelect">폰트 두께</label>
-      <select id="fontWeightSelect">
-        <option value="">기본 두께</option>
-        <option value="300">가늘게</option>
-        <option value="400">보통</option>
-        <option value="500">중간</option>
-        <option value="600">약간 굵게</option>
-        <option value="700">굵게</option>
-        <option value="900">매우 굵게</option>
-      </select>
-    </div>
-  </section>
+</section>
 
   <section class="section">
       <div class="select-mode-switch" role="tablist" aria-label="선택 방식">
@@ -2197,6 +2186,20 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="bottom-accent">
     <span></span><span></span><span></span>
   </div>
+
+    <div class="font-weight-control">
+      <label for="fontWeightSelect">폰트 두께</label>
+      <select id="fontWeightSelect">
+        <option value="">기본 두께</option>
+        <option value="300">가늘게</option>
+        <option value="400">보통</option>
+        <option value="500">중간</option>
+        <option value="600">약간 굵게</option>
+        <option value="700">굵게</option>
+        <option value="900">매우 굵게</option>
+      </select>
+    </div>
+ 
 
   <div class="version-note">V 1.5</div>
 
