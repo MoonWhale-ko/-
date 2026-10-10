@@ -1871,7 +1871,65 @@ button { font:inherit; color:inherit; }
   }
 }
 
+/* 사용자 폰트 두께: 기본값에서는 기존 요소별 두께를 그대로 유지 */
+html[data-font-weight] body,
+html[data-font-weight] body * {
+  font-weight:var(--user-font-weight) !important;
+}
+
+.font-weight-control {
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+  font-size:13px;
+}
+
+.font-weight-control select {
+  max-width:100%;
+  min-height:34px;
+  padding:4px 9px;
+  border:1px solid #777;
+  border-radius:0;
+  background:#f3f3f3;
+  color:var(--text);
+  font:inherit;
+}
 </style>
+<script>
+// 먼저 복원해 저장된 글자 두께로 첫 화면을 표시한다.
+const FONT_WEIGHT_KEY = 'endfieldTraitFinderFontWeightV1';
+const FONT_WEIGHT_VALUES = ['', '300', '400', '500', '600', '700', '900'];
+
+function applyFontWeight(value) {
+  const weight = FONT_WEIGHT_VALUES.includes(value) ? value : '';
+  if (weight) {
+    document.documentElement.dataset.fontWeight = weight;
+    document.documentElement.style.setProperty('--user-font-weight', weight);
+  } else {
+    delete document.documentElement.dataset.fontWeight;
+    document.documentElement.style.removeProperty('--user-font-weight');
+  }
+  return weight;
+}
+
+try {
+  applyFontWeight(localStorage.getItem(FONT_WEIGHT_KEY) || '');
+} catch {}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const select = document.getElementById('fontWeightSelect');
+  select.value = document.documentElement.dataset.fontWeight || '';
+  select.addEventListener('change', () => {
+    const weight = applyFontWeight(select.value);
+    try {
+      if (weight) localStorage.setItem(FONT_WEIGHT_KEY, weight);
+      else localStorage.removeItem(FONT_WEIGHT_KEY);
+    } catch {}
+  });
+});
+</script>
 </head>
 <body>
 <main class="page">
@@ -1880,6 +1938,18 @@ button { font:inherit; color:inherit; }
     <div class="eyebrow">ARKNIGHTS : ENDFIELD / TRAIT FINDER</div>
     <h1>기질 검색기</h1>
     <p>1번 · 2번 · 3번 옵션에서 각각 하나씩 선택해 조건에 맞는 무기를 찾는 검색기입니다.</p>
+    <div class="font-weight-control">
+      <label for="fontWeightSelect">폰트 두께</label>
+      <select id="fontWeightSelect">
+        <option value="">기본 두께</option>
+        <option value="300">가늘게</option>
+        <option value="400">보통</option>
+        <option value="500">중간</option>
+        <option value="600">약간 굵게</option>
+        <option value="700">굵게</option>
+        <option value="900">매우 굵게</option>
+      </select>
+    </div>
   </section>
 
   <section class="section">
